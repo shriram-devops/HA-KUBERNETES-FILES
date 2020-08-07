@@ -1,0 +1,47 @@
+#You have to follow the procedure step by step and in the same order to have 3 master HA kubernetes cluster on CENTOS 7 machines.
+
+1) You need 7 , Centos 7 machines according for below purposes
+   - API SERVER LOAD BALANCER   
+   - MASTER1
+   - MASTER2
+   - MASTER3
+   - WORKER-NODE1
+   - WORKER-NODE2
+   - USER-REQUEST-LOAD-BALANCER
+
+2) Make sure you use new or completely clean CENTOS 7 machines with no packages pre-installed on them 
+
+3) All steps has to be run as root user
+   STEPS - 
+         i)   Create the API server load balancer with the script provided on first machine
+   
+        ii)   Create MASTER1 with the master1-initialization script 
+ 
+       iii)   Wait for script to end completely , it takes 15 mins approx
+         
+        iv)   Keep a close eye on green lines coming while script is executing
+         
+         v)   Do not forget to copy and save on notepad , JOINING TOKENS , DASHBOARD ACCESS TOKEN from the script execution output
+         
+        vi)   Fire script for MASTER2 and MASTER3 on their respective machines
+         
+       vii)   Once the MASTER2 & MASTER3 scripts are complete , Immediately fire CONTROL PLANE JOINING TOKENS received from MASTER1 script output
+        
+      viii)   Completely Read the MASTER1 Script output on MASTER1 machine , follow guidelines in Green text and login to dashboard using access token
+         
+        ix)   Firing "kubectl get nodes -o wide" every MASTER NODE , should show you all MASTERS in READY state.
+         
+         x)   Now , RUN worker-node initialization on both the worker nodes 
+         
+        xi)   Once the worker node script execution is complete , Immediate fire WORKER NODE JOINING TOKEN received from MASTER1 script execution output
+        
+       xii)   Wait for 5 mins and go to ANY MASTER NODE and fire "kubectl get nodes -o wide" , Every node should see READY state
+      
+      xiii)   If every node is in READY state your HA-MULTIMASTER-KUBERNETES-CLUSTER is ready to use.
+        
+       xiv)   Now you can run USER-REQUEST-LOAD-BALANCER script on a dedicated new machine to load balance traffic coming on your application
+              across all worker nodes , You can create USER-REQUEST-LOAD-BALANCER after doing deployments in a cluster
+
+
+IMPORTANT: EVERY SCRIPT IS FOR DEDICATED NODE , DO NOT USE MASTER1 SCRIPT ON ANY OTHER MASTER OR NODE OR LOADBALANCER.
+           IT IS GOOD TO HAVE DOMAIN NAMES AND HOSTNAMES MAPPED ON EACH OF MACHINES AND THEY SHOULD BE RESOLVABLE FROM EVERY MACHINES IN IMPLEMENTATION 
