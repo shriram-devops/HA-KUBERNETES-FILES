@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: coreproclaimapi
+spec:
+  rules:
+    - host: api-prod.mediassist.in
+      http:
+        paths:
+          - backend:
+              serviceName: coreproclaimapi-service
+              servicePort: 80
