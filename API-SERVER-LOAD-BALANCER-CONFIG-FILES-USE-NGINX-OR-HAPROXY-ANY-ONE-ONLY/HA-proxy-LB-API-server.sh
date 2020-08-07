@@ -121,7 +121,7 @@ echo -e "\e[32msudo systemctl enable haproxy\e[0m"
 
 echo -e "\e[32msudo systemctl start haproxy\e[0m"
 
-echo -e "\e[32msudo systemctl enable haproxy\e[0m"
+echo -e "\e[32msudo systemctl status haproxy -l\e[0m"
 
 echo -e "\e[32mTo allow HAproxy stats dashboard and logs do as mentioned in global section point 1) and 2)\e[0m"
 
